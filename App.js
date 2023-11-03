@@ -5,8 +5,19 @@ import { ClerkProvider, SignedIn, SignedOut } from "@clerk/clerk-expo";
 import SignInWithOAuth from "./Components/SignInWithOAuth";
 import {NavigationContainer} from '@react-navigation/native'
 import Home from './App/Screens/Home'
+import { useFonts } from 'expo-font';
+
 import TabNavigation from "./App/Navigations/TabNavigation";
 export default function App() {
+  const [fontsLoaded] = useFonts({
+    'appfont': require('./assets/fonts/Outfit-Regular.ttf'),
+    'appfont-bold': require('./assets/fonts/Outfit-Bold.ttf'),
+    'appfont-semi': require('./assets/fonts/Outfit-SemiBold.ttf'),
+  });
+  if(!fontsLoaded)
+  {
+    return null;
+  }
   return (
     <ClerkProvider
       publishableKey={
@@ -14,6 +25,7 @@ export default function App() {
       }
     >
       <SafeAreaView style={styles.container}>
+        <StatusBar hidden/>
         <SignedIn>
           <NavigationContainer>
             <TabNavigation/>
